@@ -4,7 +4,6 @@ namespace SmartDato\DutyRefundsLandmark;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use SmartDato\DutyRefundsLandmark\Commands\DutyRefundsLandmarkCommand;
 
 class DutyRefundsLandmarkServiceProvider extends PackageServiceProvider
 {
