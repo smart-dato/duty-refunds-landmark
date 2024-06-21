@@ -5,6 +5,7 @@ namespace SmartDato\DutyRefundsLandmark\Resource;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Response;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData;
 use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
 use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
 use SmartDato\DutyRefundsLandmark\Requests\Shipment\CancelOrDeleteShipment;
@@ -16,19 +17,14 @@ use SmartDato\DutyRefundsLandmark\Resource;
 class Shipment extends Resource
 {
     /**
-     * @param  string|null  $reference
-     * @param  string|null  $trackingNumber
-     * @param  string|null  $packageReference
-     * @param  string|null  $retrievalType
-     * @return Response
      * @throws FatalRequestException
      * @throws RequestException
      */
     public function trackShipment(
-        ?string $reference,
-        ?string $trackingNumber,
-        ?string $packageReference,
-        ?string $retrievalType,
+        ?string $reference = null,
+        ?string $trackingNumber = null,
+        ?string $packageReference = null,
+        ?string $retrievalType = null,
     ): Response {
         return $this->connector->send(
             new TrackShipment(
@@ -40,19 +36,14 @@ class Shipment extends Resource
         );
     }
 
-
-    public function importShipment(): Response
+    public function importShipment(ShipmentData $shipment): Response
     {
-        return $this->connector->send(new ImportShipment());
+        return $this->connector->send(new ImportShipment($shipment));
     }
 
-
     /**
-     * @param  string|null  $reference
-     * @param  string|null  $trackingNumber
-     * @param  bool  $deleteShipment
      * @param  string|null  $reason  Required if deleting a shipment.
-     * @return Response
+     *
      * @throws FatalRequestException
      * @throws RequestException
      */
@@ -71,7 +62,6 @@ class Shipment extends Resource
             )
         );
     }
-
 
     public function returnShipment(
         string $trackingNumber,

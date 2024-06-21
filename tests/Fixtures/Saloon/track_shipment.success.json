@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Server": "nginx\/1.18.0 (Ubuntu)",
+        "Date": "Fri, 21 Jun 2024 11:08:04 GMT",
+        "Content-Type": "application\/json",
+        "Content-Length": "362",
+        "Connection": "keep-alive",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+    },
+    "data": "{\"test\":true,\"result\":{\"success\":true,\"result_message\":null,\"shipment_details_schema\":{\"end_delivery_carrier\":\"Sample Carrier\"},\"packages\":[{\"tracking_number\":\"xx\",\"landmark_tracking_number\":\"LTN34337288N1\",\"package_reference\":null,\"expected_delivery\":null,\"events\":[{\"status\":\"Attempted Delivery\",\"date_time\":\"06\/21\/2024 06:08 AM\",\"location\":\"Anytown, US\"}]}]}}"
+}

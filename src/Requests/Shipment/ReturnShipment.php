@@ -21,12 +21,10 @@ class ReturnShipment extends Request implements HasBody
 
     protected Method $method = Method::POST;
 
-
     public function resolveEndpoint(): string
     {
-        return "/return";
+        return '/return';
     }
-
 
     public function __construct(
         protected string $trackingNumber,

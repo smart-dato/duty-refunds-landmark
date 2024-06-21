@@ -61,7 +61,6 @@ class DutyRefundsLandmark extends Connector
         return new LandedCost($this);
     }
 
-
     public function shipment(): Shipment
     {
         return new Shipment($this);

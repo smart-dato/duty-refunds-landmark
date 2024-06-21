@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Server": "nginx\/1.18.0 (Ubuntu)",
+        "Date": "Fri, 21 Jun 2024 10:28:19 GMT",
+        "Content-Type": "application\/json",
+        "Content-Length": "582",
+        "Connection": "keep-alive",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+    },
+    "data": "{\"result\":{\"success\":true,\"result_message\":\"Shipment 3245325 successfully created and processed\",\"shipping_carrier\":null,\"shipment_label_link\":\"https:\/\/api.landmarkglobal.com\/download\/get-label.php?hid=PfH%2FxflkaifR4aS0Dchv6Onz6zZE_r6MAq8oCwh4br%2Fo3\",\"packages\":[{\"tracking_number\":\"73561857130\",\"landmark_tracking_number\":\"LTN_test44499952N1\",\"package_reference\":\"98233310\",\"label_link\":\"https:\/\/api.landmarkglobal.com\/download\/get-label.php?hid=8YjuJGsdHXt74oRS9UNSBPAVUMCAqKeKRZjQf85N_WxYITtE0vJss75re\",\"package_id\":\"xxx1\",\"barcode_data\":\"xxx492104000000412001\"}]},\"test\":null}"
+}

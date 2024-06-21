@@ -1,0 +1,12 @@
+{
+    "statusCode": 400,
+    "headers": {
+        "Server": "nginx\/1.18.0 (Ubuntu)",
+        "Date": "Fri, 21 Jun 2024 10:25:57 GMT",
+        "Content-Type": "application\/json",
+        "Content-Length": "102",
+        "Connection": "keep-alive",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload"
+    },
+    "data": "{\"detail\":{\"error_code\":\"address_validation\",\"error_message\":\"City, State, Postal Code do not match\"}}"
+}

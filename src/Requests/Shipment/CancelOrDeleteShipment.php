@@ -2,7 +2,6 @@
 
 namespace SmartDato\DutyRefundsLandmark\Requests\Shipment;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -27,37 +26,31 @@ use Saloon\Http\Request;
  */
 class CancelOrDeleteShipment extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return '/shipment';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/shipment";
-	}
+    /**
+     * @param  null|string  $reason  Required if deleting a shipment.
+     */
+    public function __construct(
+        protected ?string $reference = null,
+        protected ?string $trackingNumber = null,
+        protected ?bool $deleteShipment = null,
+        protected ?string $reason = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|string $reference
-	 * @param null|string $trackingNumber
-	 * @param null|bool $deleteShipment
-	 * @param null|string $reason Required if deleting a shipment.
-	 */
-	public function __construct(
-		protected ?string $reference = null,
-		protected ?string $trackingNumber = null,
-		protected ?bool $deleteShipment = null,
-		protected ?string $reason = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter([
-			'Reference' => $this->reference,
-			'TrackingNumber' => $this->trackingNumber,
-			'DeleteShipment' => $this->deleteShipment,
-			'Reason' => $this->reason,
-		]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter([
+            'Reference' => $this->reference,
+            'TrackingNumber' => $this->trackingNumber,
+            'DeleteShipment' => $this->deleteShipment,
+            'Reason' => $this->reason,
+        ]);
+    }
 }

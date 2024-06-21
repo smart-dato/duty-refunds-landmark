@@ -8,8 +8,8 @@ use SmartDato\DutyRefundsLandmark\Resource;
 
 class LandedCost extends Resource
 {
-	public function landedCost(): Response
-	{
-		return $this->connector->send(new LandedCostRequest());
-	}
+    public function landedCost(): Response
+    {
+        return $this->connector->send(new LandedCostRequest());
+    }
 }

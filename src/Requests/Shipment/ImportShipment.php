@@ -2,11 +2,11 @@
 
 namespace SmartDato\DutyRefundsLandmark\Requests\Shipment;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData;
 
 /**
  * ImportShipment
@@ -16,18 +16,22 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class ImportShipment extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return '/shipment';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/shipment";
-	}
+    public function __construct(
+        protected ShipmentData $shipment
+    ) {
+    }
 
-
-	public function __construct()
-	{
-	}
+    protected function defaultBody(): array
+    {
+        return $this->shipment->build();
+    }
 }

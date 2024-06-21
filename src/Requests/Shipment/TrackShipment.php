@@ -2,7 +2,6 @@
 
 namespace SmartDato\DutyRefundsLandmark\Requests\Shipment;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -44,37 +43,28 @@ use Saloon\Http\Request;
  */
 class TrackShipment extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/shipment';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/shipment";
-	}
+    public function __construct(
+        protected ?string $reference = null,
+        protected ?string $trackingNumber = null,
+        protected ?string $packageReference = null,
+        protected ?string $retrievalType = null,
+    ) {
+    }
 
-
-	/**
-	 * @param null|string $reference
-	 * @param null|string $trackingNumber
-	 * @param null|string $packageReference
-	 * @param null|string $retrievalType
-	 */
-	public function __construct(
-		protected ?string $reference = null,
-		protected ?string $trackingNumber = null,
-		protected ?string $packageReference = null,
-		protected ?string $retrievalType = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter([
-			'Reference' => $this->reference,
-			'TrackingNumber' => $this->trackingNumber,
-			'PackageReference' => $this->packageReference,
-			'RetrievalType' => $this->retrievalType,
-		]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter([
+            'Reference' => $this->reference,
+            'TrackingNumber' => $this->trackingNumber,
+            'PackageReference' => $this->packageReference,
+            'RetrievalType' => $this->retrievalType,
+        ]);
+    }
 }
