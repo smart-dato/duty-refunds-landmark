@@ -11,9 +11,7 @@ class HarmonizedSystemData extends Data
     public function __construct(
         protected string $code = '',
         protected string $region = '',
-    ) {
-
-    }
+    ) {}
 
     public function build(): array
     {

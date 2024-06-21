@@ -20,8 +20,7 @@ class DangerousGoodData extends Data
         protected WeightUnit $weightUnit = WeightUnit::Kilogram,
         protected float $volume = 1.0,
         protected VolumeUnit $volumeUnit = VolumeUnit::CubicCentimeter,
-    ) {
-    }
+    ) {}
 
     public function build(): array
     {

@@ -55,8 +55,7 @@ class TrackShipment extends Request
         protected ?string $trackingNumber = null,
         protected ?string $packageReference = null,
         protected ?string $retrievalType = null,
-    ) {
-    }
+    ) {}
 
     public function defaultQuery(): array
     {

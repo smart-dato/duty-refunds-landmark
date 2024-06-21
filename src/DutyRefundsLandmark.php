@@ -40,8 +40,7 @@ class DutyRefundsLandmark extends Connector
     public function __construct(
         public readonly ?string $username = null,
         public readonly ?string $password = null
-    ) {
-    }
+    ) {}
 
     public function resolveBaseUrl(): string
     {

@@ -23,7 +23,5 @@ class LandedCost extends Request implements HasBody
         return '/landedCost';
     }
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 }

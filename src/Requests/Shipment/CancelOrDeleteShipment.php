@@ -41,8 +41,7 @@ class CancelOrDeleteShipment extends Request
         protected ?string $trackingNumber = null,
         protected ?bool $deleteShipment = null,
         protected ?string $reason = null,
-    ) {
-    }
+    ) {}
 
     public function defaultQuery(): array
     {

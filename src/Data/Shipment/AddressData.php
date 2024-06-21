@@ -21,8 +21,7 @@ class AddressData extends Data
         protected ?string $address3 = null,
         protected ?string $phone = null,
         protected ?string $email = null,
-    ) {
-    }
+    ) {}
 
     public function build(): array
     {

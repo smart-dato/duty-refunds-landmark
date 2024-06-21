@@ -21,8 +21,7 @@ class ItemData extends Data
         protected HarmonizedSystemData $hs = new HarmonizedSystemData(),
 
         protected DangerousGoodData $dangerousGood = new DangerousGoodData(),
-    ) {
-    }
+    ) {}
 
     public function build(): array
     {

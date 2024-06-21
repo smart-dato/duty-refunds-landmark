@@ -32,6 +32,5 @@ class ReturnShipment extends Request implements HasBody
         protected ?LabelFormat $labelFormat,
         protected ?LabelEncoding $labelEncoding,
         protected ?string $property,
-    ) {
-    }
+    ) {}
 }

@@ -27,8 +27,7 @@ class ImportShipment extends Request implements HasBody
 
     public function __construct(
         protected ShipmentData $shipment
-    ) {
-    }
+    ) {}
 
     protected function defaultBody(): array
     {

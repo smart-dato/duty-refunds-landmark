@@ -20,8 +20,7 @@ class PackageData extends Data
         protected float $height = 1.0,
 
         protected string $packageReference = '',
-    ) {
-    }
+    ) {}
 
     public function build(): array
     {
