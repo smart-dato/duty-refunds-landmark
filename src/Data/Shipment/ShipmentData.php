@@ -46,7 +46,7 @@ class ShipmentData extends Data
             'LabelFormat' => $this->labelFormat?->value,
             'LabelEncoding' => $this->labelEncoding?->value,
             'Package' => $this->package->build(),
-            'Items' => array_map(fn($item) => $item->build(), $this->items),
+            'Items' => array_map(fn ($item) => $item->build(), $this->items),
         ];
 
         if ($this->vendorInformation) {
