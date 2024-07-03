@@ -18,8 +18,8 @@ class ShipmentData extends Data
         protected string $reference,
         protected AddressData $shipTo,
         protected float $shipmentInsuranceFreight,
-        protected VendorData $vendorInformation,
         protected PackageData $package,
+        protected ?VendorData $vendorInformation = null,
         protected array $items = [],
 
         protected ?float $orderTotal = null,
@@ -35,19 +35,24 @@ class ShipmentData extends Data
 
     public function build(): array
     {
-        return [
+        $body = [
             'Reference' => $this->reference,
             'ShipTo' => $this->shipTo->build(),
             'OrderTotal' => $this->orderTotal,
             'OrderInsuranceFreightTotal' => $this->orderInsuranceFreightTotal,
             'ShipmentInsuranceFreight' => $this->shipmentInsuranceFreight,
-            'ItemsCurrency' => $this->itemsCurrency->value,
+            'ItemsCurrency' => $this->itemsCurrency?->value,
             'ProduceLabel' => $this->produceLabel,
-            'LabelFormat' => $this->labelFormat->value,
-            'LabelEncoding' => $this->labelEncoding->value,
-            'VendorInformation' => $this->vendorInformation->build(),
+            'LabelFormat' => $this->labelFormat?->value,
+            'LabelEncoding' => $this->labelEncoding?->value,
             'Package' => $this->package->build(),
-            'Items' => array_map(fn ($item) => $item->build(), $this->items),
+            'Items' => array_map(fn($item) => $item->build(), $this->items),
         ];
+
+        if ($this->vendorInformation) {
+            $body['VendorInformation'] = $this->vendorInformation?->build();
+        }
+
+        return $body;
     }
 }
