@@ -7,8 +7,6 @@ use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
 use SmartDato\DutyRefundsLandmark\Data\ReturnShipment\ReturnShipmentData;
-use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
-use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
 
 /**
  * ReturnShipment

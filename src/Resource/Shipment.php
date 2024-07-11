@@ -7,8 +7,6 @@ use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Response;
 use SmartDato\DutyRefundsLandmark\Data\ReturnShipment\ReturnShipmentData;
 use SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData;
-use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
-use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
 use SmartDato\DutyRefundsLandmark\Requests\Shipment\CancelOrDeleteShipment;
 use SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment;
 use SmartDato\DutyRefundsLandmark\Requests\Shipment\ReturnShipment;
@@ -64,7 +62,8 @@ class Shipment extends Resource
         );
     }
 
-    public function returnShipment(ReturnShipmentData $returnShipmentData): Response {
+    public function returnShipment(ReturnShipmentData $returnShipmentData): Response
+    {
         return $this->connector->send(
             new ReturnShipment($returnShipmentData));
     }
