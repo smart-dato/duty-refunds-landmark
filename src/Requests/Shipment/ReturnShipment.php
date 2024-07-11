@@ -6,6 +6,7 @@ use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Traits\Body\HasJsonBody;
+use SmartDato\DutyRefundsLandmark\Data\ReturnShipment\ReturnShipmentData;
 use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
 use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
 
@@ -27,10 +28,11 @@ class ReturnShipment extends Request implements HasBody
     }
 
     public function __construct(
-        protected string $trackingNumber,
-        protected array $items,
-        protected ?LabelFormat $labelFormat,
-        protected ?LabelEncoding $labelEncoding,
-        protected ?string $property,
+        protected ReturnShipmentData $shipment
     ) {}
+
+    protected function defaultBody(): array
+    {
+        return $this->shipment->build();
+    }
 }

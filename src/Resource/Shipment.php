@@ -5,6 +5,7 @@ namespace SmartDato\DutyRefundsLandmark\Resource;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\Response;
+use SmartDato\DutyRefundsLandmark\Data\ReturnShipment\ReturnShipmentData;
 use SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData;
 use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
 use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
@@ -63,20 +64,8 @@ class Shipment extends Resource
         );
     }
 
-    public function returnShipment(
-        string $trackingNumber,
-        array $items,
-        ?LabelFormat $labelFormat,
-        ?LabelEncoding $labelEncoding,
-        ?string $property,
-    ): Response {
+    public function returnShipment(ReturnShipmentData $returnShipmentData): Response {
         return $this->connector->send(
-            new ReturnShipment(
-                $trackingNumber,
-                $items,
-                $labelFormat,
-                $labelEncoding,
-                $property
-            ));
+            new ReturnShipment($returnShipmentData));
     }
 }

@@ -50,7 +50,7 @@ class ShipmentData extends Data
         ];
 
         if ($this->vendorInformation) {
-            $body['VendorInformation'] = $this->vendorInformation?->build();
+            $body['VendorInformation'] = $this->vendorInformation->build();
         }
 
         return $body;
