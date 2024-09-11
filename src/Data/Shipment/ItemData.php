@@ -18,9 +18,9 @@ class ItemData extends Data
         protected Country $countryOfOrigin = Country::ITALY,
         protected string $url = '',
 
-        protected HarmonizedSystemData $hs = new HarmonizedSystemData(),
+        protected HarmonizedSystemData $hs = new HarmonizedSystemData,
 
-        protected DangerousGoodData $dangerousGood = new DangerousGoodData(),
+        protected DangerousGoodData $dangerousGood = new DangerousGoodData,
     ) {}
 
     public function build(): array

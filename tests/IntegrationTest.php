@@ -78,7 +78,7 @@ beforeEach(function () {
 });
 
 it('fails to create shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark();
+    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
     $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
         \SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment::class => \Saloon\Http\Faking\MockResponse::fixture('import_shipment.fail.address_validation'),
     ]));
@@ -90,7 +90,7 @@ it('fails to create shipment', function () {
 });
 
 it('can create shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark();
+    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
     $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
         \SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment::class => \Saloon\Http\Faking\MockResponse::fixture('import_shipment.success'),
     ]));
@@ -102,7 +102,7 @@ it('can create shipment', function () {
 });
 
 it('can track shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark();
+    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
     $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
         \SmartDato\DutyRefundsLandmark\Requests\Shipment\TrackShipment::class => \Saloon\Http\Faking\MockResponse::fixture('track_shipment.success'),
     ]));
@@ -114,7 +114,7 @@ it('can track shipment', function () {
 });
 
 it('can not find shipment tracking', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark();
+    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
     $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
         \SmartDato\DutyRefundsLandmark\Requests\Shipment\TrackShipment::class => \Saloon\Http\Faking\MockResponse::fixture('track_shipment.fail'),
     ]));

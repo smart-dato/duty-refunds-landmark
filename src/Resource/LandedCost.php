@@ -10,6 +10,6 @@ class LandedCost extends Resource
 {
     public function landedCost(): Response
     {
-        return $this->connector->send(new LandedCostRequest());
+        return $this->connector->send(new LandedCostRequest);
     }
 }

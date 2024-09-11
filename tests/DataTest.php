@@ -31,7 +31,7 @@ it('can create a full shipment', function () {
         vendorInformation: new \SmartDato\DutyRefundsLandmark\Data\Shipment\VendorData(
             name: $faker->name(),
         ),
-        package: new \SmartDato\DutyRefundsLandmark\Data\Shipment\PackageData(),
+        package: new \SmartDato\DutyRefundsLandmark\Data\Shipment\PackageData,
     );
 
     expect($shipment)->not()->toBeNull();
