@@ -39,12 +39,13 @@ class DutyRefundsLandmark extends Connector
 {
     public function __construct(
         public readonly ?string $username = null,
-        public readonly ?string $password = null
+        public readonly ?string $password = null,
+        public readonly ?string $endpoint = null
     ) {}
 
     public function resolveBaseUrl(): string
     {
-        return config('duty-refunds-landmark.url');
+        return $this->endpoint ?? config('duty-refunds-landmark.url');
     }
 
     protected function defaultAuth(): BasicAuthenticator
