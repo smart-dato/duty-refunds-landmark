@@ -20,6 +20,7 @@ class ShipmentData extends Data
         protected float $shipmentInsuranceFreight,
         protected PackageData $package,
         protected ?VendorData $vendorInformation = null,
+        protected ?bool $requiresVATRepresentation = null,
         protected array $items = [],
 
         protected ?float $orderTotal = null,
@@ -51,6 +52,10 @@ class ShipmentData extends Data
 
         if ($this->vendorInformation) {
             $body['VendorInformation'] = $this->vendorInformation->build();
+        }
+
+        if ($this->requiresVATRepresentation !== null) {
+            $body['RequiresVATRepresentation'] = $this->requiresVATRepresentation;
         }
 
         return $body;
