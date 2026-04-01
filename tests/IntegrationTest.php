@@ -1,9 +1,31 @@
 <?php
 
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\AddressData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\DangerousGoodData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\HarmonizedSystemData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\ItemData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\PackageData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData;
+use SmartDato\DutyRefundsLandmark\Data\Shipment\VendorData;
+use SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
+use SmartDato\DutyRefundsLandmark\Enums\Country;
+use SmartDato\DutyRefundsLandmark\Enums\Currency;
+use SmartDato\DutyRefundsLandmark\Enums\LabelEncoding;
+use SmartDato\DutyRefundsLandmark\Enums\LabelFormat;
+use SmartDato\DutyRefundsLandmark\Enums\PackingGroup;
+use SmartDato\DutyRefundsLandmark\Enums\Units\DimensionUnit;
+use SmartDato\DutyRefundsLandmark\Enums\Units\VolumeUnit;
+use SmartDato\DutyRefundsLandmark\Enums\Units\WeightUnit;
+use SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment;
+use SmartDato\DutyRefundsLandmark\Requests\Shipment\TrackShipment;
+use SmartDato\DutyRefundsLandmark\Resource\Shipment;
+
 beforeEach(function () {
-    $this->shipment = new \SmartDato\DutyRefundsLandmark\Data\Shipment\ShipmentData(
+    $this->shipment = new ShipmentData(
         reference: '3245325',
-        shipTo: new \SmartDato\DutyRefundsLandmark\Data\Shipment\AddressData(
+        shipTo: new AddressData(
             name: 'Test Company',
             attention: 'Ole Olsen',
             address1: '5130 Halford Drive',
@@ -12,18 +34,18 @@ beforeEach(function () {
             city: 'Windsor',
             state: 'ON',
             postalCode: 'N9A6J3',
-            country: \SmartDato\DutyRefundsLandmark\Enums\Country::CANADA,
+            country: Country::CANADA,
             phone: '1-519-737-9101',
             email: 'orders@test.com'
         ),
         orderTotal: 187.98,
         orderInsuranceFreightTotal: 20.65,
         shipmentInsuranceFreight: 20.65,
-        itemsCurrency: \SmartDato\DutyRefundsLandmark\Enums\Currency::United_States_Dollar,
+        itemsCurrency: Currency::United_States_Dollar,
         produceLabel: false,
-        labelFormat: \SmartDato\DutyRefundsLandmark\Enums\LabelFormat::PDF,
-        labelEncoding: \SmartDato\DutyRefundsLandmark\Enums\LabelEncoding::LINKS,
-        vendorInformation: new \SmartDato\DutyRefundsLandmark\Data\Shipment\VendorData(
+        labelFormat: LabelFormat::PDF,
+        labelEncoding: LabelEncoding::LINKS,
+        vendorInformation: new VendorData(
             name: 'Test Company Legal Name',
             phone: '12223334444',
             email: 'contact@vendor.com',
@@ -32,44 +54,44 @@ beforeEach(function () {
             city: 'Santa Barbara',
             state: 'CA',
             postalCode: '93101',
-            country: \SmartDato\DutyRefundsLandmark\Enums\Country::UNITED_STATES,
+            country: Country::UNITED_STATES,
 
             businessNumber: '12345',
             RGRNumber: '123',
             IOSSNumber: 'IM1234567891',
             EORINumber: '12345'
         ),
-        package: new \SmartDato\DutyRefundsLandmark\Data\Shipment\PackageData(
-            weightUnit: \SmartDato\DutyRefundsLandmark\Enums\Units\WeightUnit::Pound,
+        package: new PackageData(
+            weightUnit: WeightUnit::Pound,
             weight: 4.5,
-            dimensionsUnit: \SmartDato\DutyRefundsLandmark\Enums\Units\DimensionUnit::Inches,
+            dimensionsUnit: DimensionUnit::Inches,
             length: 12,
             width: 12,
             height: 12,
             packageReference: '98233310'
         ),
         items: [
-            new \SmartDato\DutyRefundsLandmark\Data\Shipment\ItemData(
+            new ItemData(
                 sku: '7224059',
                 quantity: 2,
                 unitPrice: 93.99,
                 description: "Women's Shoes",
                 hsCode: '640399.30.00',
-                countryOfOrigin: \SmartDato\DutyRefundsLandmark\Enums\Country::CHINA,
+                countryOfOrigin: Country::CHINA,
                 url: '',
-                hs: new \SmartDato\DutyRefundsLandmark\Data\Shipment\HarmonizedSystemData(
+                hs: new HarmonizedSystemData(
                     code: '6403993000',
                     region: 'US'
                 ),
-                dangerousGood: new \SmartDato\DutyRefundsLandmark\Data\Shipment\DangerousGoodData(
+                dangerousGood: new DangerousGoodData(
                     containsDangerousGoods: true,
                     unCode: 'UN3481',
-                    packingGroup: \SmartDato\DutyRefundsLandmark\Enums\PackingGroup::II,
+                    packingGroup: PackingGroup::II,
                     packingInstructions: 'PS967S1',
                     weight: 10,
-                    weightUnit: \SmartDato\DutyRefundsLandmark\Enums\Units\WeightUnit::Kilogram,
+                    weightUnit: WeightUnit::Kilogram,
                     volume: 30,
-                    volumeUnit: \SmartDato\DutyRefundsLandmark\Enums\Units\VolumeUnit::CubicCentimeter
+                    volumeUnit: VolumeUnit::CubicCentimeter
                 )
 
             ),
@@ -78,48 +100,48 @@ beforeEach(function () {
 });
 
 it('fails to create shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
-    $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
-        \SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment::class => \Saloon\Http\Faking\MockResponse::fixture('import_shipment.fail.address_validation'),
+    $connector = new DutyRefundsLandmark;
+    $connector->withMockClient(new MockClient([
+        ImportShipment::class => MockResponse::fixture('import_shipment/fail_address_validation'),
     ]));
 
-    $response = (new SmartDato\DutyRefundsLandmark\Resource\Shipment($connector))
+    $response = (new Shipment($connector))
         ->importShipment($this->shipment);
 
     expect($response->status())->toBe(400);
 });
 
 it('can create shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
-    $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
-        \SmartDato\DutyRefundsLandmark\Requests\Shipment\ImportShipment::class => \Saloon\Http\Faking\MockResponse::fixture('import_shipment.success'),
+    $connector = new DutyRefundsLandmark;
+    $connector->withMockClient(new MockClient([
+        ImportShipment::class => MockResponse::fixture('import_shipment/success'),
     ]));
 
-    $response = (new SmartDato\DutyRefundsLandmark\Resource\Shipment($connector))
+    $response = (new Shipment($connector))
         ->importShipment($this->shipment);
 
     expect($response->status())->toBe(200);
 });
 
 it('can track shipment', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
-    $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
-        \SmartDato\DutyRefundsLandmark\Requests\Shipment\TrackShipment::class => \Saloon\Http\Faking\MockResponse::fixture('track_shipment.success'),
+    $connector = new DutyRefundsLandmark;
+    $connector->withMockClient(new MockClient([
+        TrackShipment::class => MockResponse::fixture('track_shipment/success'),
     ]));
 
-    $response = (new SmartDato\DutyRefundsLandmark\Resource\Shipment($connector))
+    $response = (new Shipment($connector))
         ->trackShipment(trackingNumber: 'xx');
 
     expect($response->status())->toBe(200);
 });
 
 it('can not find shipment tracking', function () {
-    $connector = new \SmartDato\DutyRefundsLandmark\DutyRefundsLandmark;
-    $connector->withMockClient(new \Saloon\Http\Faking\MockClient([
-        \SmartDato\DutyRefundsLandmark\Requests\Shipment\TrackShipment::class => \Saloon\Http\Faking\MockResponse::fixture('track_shipment.fail'),
+    $connector = new DutyRefundsLandmark;
+    $connector->withMockClient(new MockClient([
+        TrackShipment::class => MockResponse::fixture('track_shipment/fail'),
     ]));
 
-    $response = (new SmartDato\DutyRefundsLandmark\Resource\Shipment($connector))
+    $response = (new Shipment($connector))
         ->trackShipment(trackingNumber: 'xx');
 
     expect($response->status())->toBe(400);
