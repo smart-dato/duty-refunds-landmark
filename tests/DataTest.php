@@ -131,5 +131,5 @@ it('can create example from documentation', function () {
         ]
     );
 
-    ray(json_encode($shipment->build()));
+    expect($shipment->build())->not()->toBeNull();
 });
